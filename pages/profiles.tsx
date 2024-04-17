@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
+    console.log(session);
 
     if (!session) {
         return {
