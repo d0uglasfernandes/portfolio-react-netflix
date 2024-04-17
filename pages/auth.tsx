@@ -20,6 +20,19 @@ const Auth = () => {
         setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login')
     }, []);
 
+    const login = useCallback(async () => {
+        try {
+            const response = await signIn('credentials', {
+                email,
+                password,
+                callbackUrl: '/profiles'
+            });
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }, [email, password]);
+
     const register = useCallback(async () => {
         try {
             const response = await axios.post('/api/register', {
@@ -35,20 +48,7 @@ const Auth = () => {
         catch (error) {
             console.error(error);
         }
-    }, [email, name, password]);
-
-    const login = useCallback(async () => {
-        try {
-            const response = await signIn('credentials', {
-                email,
-                password,
-                callbackUrl: '/profiles'
-            });
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }, [email, password]);
+    }, [email, name, password, login]);
 
     return (
         <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
